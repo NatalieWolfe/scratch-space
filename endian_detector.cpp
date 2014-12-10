@@ -3,12 +3,11 @@
 #include <iostream>
 
 bool isBigEndian( void ){
-    union {
+    const union {
         short num;
         char bytes[];
-    } endianDetector;
+    } endianDetector = { 1 };
 
-    endianDetector.num = 1;
     return endianDetector.bytes[ 0 ] == 0;
 }
 
@@ -17,8 +16,8 @@ IntType swapEndian( const IntType i ){
     union {
         IntType num;
         char bytes[];
-    } byteSeparator;
-    byteSeparator.num = i;
+    } byteSeparator = { i };
+
     std::reverse( (char*)byteSeparator.bytes, (char*)byteSeparator.bytes + sizeof( IntType ) );
     return byteSeparator.num;
 }
@@ -50,7 +49,6 @@ int main( void ){
     std::cout << "networkToHost( 1u )   " << networkToHost( 1u ) << std::endl;
     std::cout << "ntohll( 1ul )         " << ntohll( 1ul ) << std::endl;
     std::cout << "networkToHost( 1ul )  " << networkToHost( 1ul ) << std::endl;
-
 
     return 0;
 }
