@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <iostream>
 
-bool isBigEndian( void ){
-    const union {
+constexpr bool isBigEndian( void ){
+    union {
         short num;
         char bytes[];
     } endianDetector = { 1 };
