@@ -41,25 +41,35 @@ std::string base64Encode( const std::string& str ) {
 // ------------------------------------------------------------------------------------------ //
 
 std::string base64Decode( const std::string& encoded ){
+    // Prepare our string, reserving an estimate of how large the result will be.
     std::string decoded;
     decoded.reserve( encoded.size() * 3 / 4 );
 
+    // Loop through the string, decoding the characters in batches of 4.
     char chars[ 4 ] = { 0 };
+    int padding = 0;
     for( std::size_t i = 0; i < encoded.size(); ++i ){
         // Don't bother decoding any padding.
         const char c = encoded[ i ];
 
+        // Decode this character.
         chars[ i % 4 ] =
             std::isupper( c ) ? c - 'A' +  0 :
             std::islower( c ) ? c - 'a' + 26 :
             std::isdigit( c ) ? c - '0' + 52 :
-            c == '=' ?  0 :
-            c == '-' ? 62 : 63
+            c == '-' ? 62 :
+            c == '/' ? 63 : (++padding, 0)
         ;
+
+        // Every 4 characters we decode 3 characters and append them to the output.
         if( i % 4 == 3 ){
-            decoded.append( 1, (chars[ 0 ] << 2)            + ((chars[ 1 ] & 0x30) >> 4)    );
-            decoded.append( 1, ((chars[ 1 ] & 0x0f) << 4)   + ((chars[ 2 ] & 0x3c) >> 2)    );
-            decoded.append( 1, ((chars[ 2 ] & 0x03) << 6)   + chars[ 3 ]                    );
+            decoded.append( 1, (chars[ 0 ] << 2) + ((chars[ 1 ] & 0x30) >> 4) );
+            if( padding <= 1 ){
+                decoded.append( 1, ((chars[ 1 ] & 0x0f) << 4) + ((chars[ 2 ] & 0x3c) >> 2) );
+            }
+            if( padding == 0 ){
+                decoded.append( 1, ((chars[ 2 ] & 0x03) << 6) + chars[ 3 ] );
+            }
         }
     }
 
