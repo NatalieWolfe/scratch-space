@@ -35,11 +35,11 @@ int main( void ){
     int keyLength = i2d_RSA_PUBKEY( rsaKey, (unsigned char**)&keyBinaryBufferPointer );
 
     std::cout << "DER Format (" << keyLength << "):" << std::hex << std::setfill( '0' ) << std::endl;
-    for( int i = 0; i < keyLength + 10; ++i ){
+    for( int i = 0; i < keyLength; ++i ){
         if( i && (i % 10 == 0) ){
             std::cout << std::endl;
         }
-        std::cout << "\\x" << std::setw( 2 ) << (int)keyBinaryBuffer[ i ] << ", ";
+        std::cout << "0x" << std::setw( 2 ) << (int)keyBinaryBuffer[ i ] << ", ";
     }
     std::cout << std::endl;
 
