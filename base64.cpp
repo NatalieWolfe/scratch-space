@@ -58,7 +58,7 @@ std::string base64Decode( const std::string& encoded ){
             std::islower( c ) ? c - 'a' + 26 :
             std::isdigit( c ) ? c - '0' + 52 :
             c == '-' ? 62 :
-            c == '/' ? 63 : (++padding, 0)
+            c == '_' ? 63 : (++padding, 0)
         ;
 
         // Every 4 characters we decode 3 characters and append them to the output.
