@@ -1,4 +1,14 @@
 #! /bin/bash
 
-clang++ -std=c++1y -lssl -lcrypto $1 && ./a.out
-#rm a.out
+file=$1
+
+CC="clang++"
+CXXFLAGS="-std=c++1y"
+LDFLAGS="-L`brew --prefix openssl`/lib -lssl -lcrypto"
+
+cmd="$CC $CXXFLAGS $LDFLAGS $file && ./a.out"
+
+echo $cmd
+eval $cmd
+
+rm a.out
