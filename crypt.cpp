@@ -13,33 +13,63 @@
 #include <openssl/rsa.h>
 
 static const char* privateKey =
-    "-----BEGIN RSA PRIVATE KEY-----\n"
-    "MIIEowIBAAKCAQEAws5ZlcsFQv8oh+f5YDE/Dqro+tyQxcRpw8Ykjo/Vxq/x7rFg\n"
-    "CZch7IUWfImTXEiYbePVApgcCFS/yMBJpaG9mWYbYDmpQEMrYEAdo7dB0A6NS/DF\n"
-    "vdlTmhUxe2YBqeP7U+s5pZ1nekhVD1vCkJroP8Z8pwOZ4kDo1pWDcguL8j0c0a5J\n"
-    "eO24sBtBxak3lDOlTdIrc6ulJ/cNrhzIhbmuQUTwImsmOH/SYHHKhMctPAU26CRa\n"
-    "i8NmhIucNx+0LYhikaJXgfdyHD/a7RdSqMHyQWqRjvEyk7DJOEojSEF8OlES24qo\n"
-    "yMTNRUIndrQc2u96oQToQh9sjg6S0g8TlWc0BwIDAQABAoIBAAYE7D21pTb5vV3d\n"
-    "rBXtz537Z/GAaTTDKeVztON2zEs0WoxejLIfKlwtjJFSiuwaDiOvG4DWBF+5hqeE\n"
-    "UYI9qicYQZZKkdE7ghaaRJAvdGgiWvlSujlwgqXLK9k9QKXoNnbUWNamM3FS1NYB\n"
-    "ptRjBPQbhPSAJvwXt1oSCpq2gp98eBYOIFSXu2CAU9RzMcmf6fnC1ddqR+ZIr7Hy\n"
-    "J8ud/VByVyW4qth+sUAKNMQaoDGA2laP7LyzHOhGL9B7j/+hhrdkf25onrEdBMf6\n"
-    "4B1wRZ9Ljfa0UZek874XcaQgX3dBBSjujeECU99iVXKMRQXbP/W2wgrEL+Rt/Lq9\n"
-    "DzzXVNkCgYEAz4e36LGCKIbGCsc4egCFf7kFcS4UM4Yi5EVDXjUKpJC5JlNMkP5x\n"
-    "YCmGRrZWrm1texpAj/xjRDkLxusOQrxA/TpEcC3VQMv4iYip6RR1EMKKlYtK71o0\n"
-    "VQdKFu4Zpe6bvULwmKzGEnzjSKABUbX203ORz06qAbsVyJvY2k+3xiMCgYEA8E3a\n"
-    "xRC8WWRog+Kf/dIrWlbgwI+oeIOKVdRTMLJOlpevXRSMHf4QwQIE0seQMGkSYXzy\n"
-    "q8LY6h2Y2mVN7/bWleWP3JhEcI6j3tstz6/Pl1eJOk50Sg5O5NNtDk2DCYr7sqWo\n"
-    "wGTJZTujqgKaEcwQURcb5hBhO7fOi6stQDzj7s0CgYAJxA03egLx/UWchDt4IkYl\n"
-    "+IL1DIIO2qURsOC2sjBKBjVwREM6H38eU1XqRfJWSvf37whSvkG9mCGhvrXxFgLI\n"
-    "59EIpl9+qRqM/k1gloHbxAvZdbCVCt2jkrA92/6A/HV/toKz7I11mULoy/7D5Zgz\n"
-    "4yBdbQo7Ap7Hze2qeE3hmQKBgQCpAVh3eIm/JQsMlnqHfSTYaHmxdFe8SmckbiwD\n"
-    "96Ol7hB7mlPhVCpcVBsoUwppwbwXrFTP0D3WifJSxyTFPAk3azh+oOihcPB3cBcM\n"
-    "Fk4d1obA5ySKYP3DmZ79jC44q/LRdgj1Ju0tsYAttZ6+HZLsNSB98c8wvNkbCczN\n"
-    "fQWhkQKBgFzyQSZzKHKlu3Zfeyg+doPXlXlQVpRHqYUoOkzY83DE5ZujXE5H081P\n"
-    "bui0fXQMsIFBt+/ItCwZsp9rBXPW0uWtA0jDIEkk5Ro4FuRyx/59/Zllxo3vpZyA\n"
-    "v7lalsxJIywVo2Ni393HP/63bDKjb99mVzeEfpy7Q89Qh+upP8c6\n"
-    "-----END RSA PRIVATE KEY-----"
+    "-----BEGIN PRIVATE KEY-----\n"
+    "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDCzlmVywVC/yiH\n"
+    "5/lgMT8Oquj63JDFxGnDxiSOj9XGr/HusWAJlyHshRZ8iZNcSJht49UCmBwIVL/I\n"
+    "wEmlob2ZZhtgOalAQytgQB2jt0HQDo1L8MW92VOaFTF7ZgGp4/tT6zmlnWd6SFUP\n"
+    "W8KQmug/xnynA5niQOjWlYNyC4vyPRzRrkl47biwG0HFqTeUM6VN0itzq6Un9w2u\n"
+    "HMiFua5BRPAiayY4f9JgccqExy08BTboJFqLw2aEi5w3H7QtiGKRoleB93IcP9rt\n"
+    "F1KowfJBapGO8TKTsMk4SiNIQXw6URLbiqjIxM1FQid2tBza73qhBOhCH2yODpLS\n"
+    "DxOVZzQHAgMBAAECggEABgTsPbWlNvm9Xd2sFe3Pnftn8YBpNMMp5XO043bMSzRa\n"
+    "jF6Msh8qXC2MkVKK7BoOI68bgNYEX7mGp4RRgj2qJxhBlkqR0TuCFppEkC90aCJa\n"
+    "+VK6OXCCpcsr2T1Apeg2dtRY1qYzcVLU1gGm1GME9BuE9IAm/Be3WhIKmraCn3x4\n"
+    "Fg4gVJe7YIBT1HMxyZ/p+cLV12pH5kivsfIny539UHJXJbiq2H6xQAo0xBqgMYDa\n"
+    "Vo/svLMc6EYv0HuP/6GGt2R/bmiesR0Ex/rgHXBFn0uN9rRRl6TzvhdxpCBfd0EF\n"
+    "KO6N4QJT32JVcoxFBds/9bbCCsQv5G38ur0PPNdU2QKBgQDPh7fosYIohsYKxzh6\n"
+    "AIV/uQVxLhQzhiLkRUNeNQqkkLkmU0yQ/nFgKYZGtlaubW17GkCP/GNEOQvG6w5C\n"
+    "vED9OkRwLdVAy/iJiKnpFHUQwoqVi0rvWjRVB0oW7hml7pu9QvCYrMYSfONIoAFR\n"
+    "tfbTc5HPTqoBuxXIm9jaT7fGIwKBgQDwTdrFELxZZGiD4p/90itaVuDAj6h4g4pV\n"
+    "1FMwsk6Wl69dFIwd/hDBAgTSx5AwaRJhfPKrwtjqHZjaZU3v9taV5Y/cmERwjqPe\n"
+    "2y3Pr8+XV4k6TnRKDk7k020OTYMJivuypajAZMllO6OqApoRzBBRFxvmEGE7t86L\n"
+    "qy1APOPuzQKBgAnEDTd6AvH9RZyEO3giRiX4gvUMgg7apRGw4LayMEoGNXBEQzof\n"
+    "fx5TVepF8lZK9/fvCFK+Qb2YIaG+tfEWAsjn0QimX36pGoz+TWCWgdvEC9l1sJUK\n"
+    "3aOSsD3b/oD8dX+2grPsjXWZQujL/sPlmDPjIF1tCjsCnsfN7ap4TeGZAoGBAKkB\n"
+    "WHd4ib8lCwyWeod9JNhoebF0V7xKZyRuLAP3o6XuEHuaU+FUKlxUGyhTCmnBvBes\n"
+    "VM/QPdaJ8lLHJMU8CTdrOH6g6KFw8HdwFwwWTh3WhsDnJIpg/cOZnv2MLjir8tF2\n"
+    "CPUm7S2xgC21nr4dkuw1IH3xzzC82RsJzM19BaGRAoGAXPJBJnMocqW7dl97KD52\n"
+    "g9eVeVBWlEephSg6TNjzcMTlm6NcTkfTzU9u6LR9dAywgUG378i0LBmyn2sFc9bS\n"
+    "5a0DSMMgSSTlGjgW5HLH/n39mWXGje+lnIC/uVqWzEkjLBWjY2Lf3cc//rdsMqNv\n"
+    "32ZXN4R+nLtDz1CH66k/xzo=\n"
+    "-----END PRIVATE KEY-----\n"
+
+    // Same key, RSA formatted
+    // "-----BEGIN RSA PRIVATE KEY-----\n"
+    // "MIIEowIBAAKCAQEAws5ZlcsFQv8oh+f5YDE/Dqro+tyQxcRpw8Ykjo/Vxq/x7rFg\n"
+    // "CZch7IUWfImTXEiYbePVApgcCFS/yMBJpaG9mWYbYDmpQEMrYEAdo7dB0A6NS/DF\n"
+    // "vdlTmhUxe2YBqeP7U+s5pZ1nekhVD1vCkJroP8Z8pwOZ4kDo1pWDcguL8j0c0a5J\n"
+    // "eO24sBtBxak3lDOlTdIrc6ulJ/cNrhzIhbmuQUTwImsmOH/SYHHKhMctPAU26CRa\n"
+    // "i8NmhIucNx+0LYhikaJXgfdyHD/a7RdSqMHyQWqRjvEyk7DJOEojSEF8OlES24qo\n"
+    // "yMTNRUIndrQc2u96oQToQh9sjg6S0g8TlWc0BwIDAQABAoIBAAYE7D21pTb5vV3d\n"
+    // "rBXtz537Z/GAaTTDKeVztON2zEs0WoxejLIfKlwtjJFSiuwaDiOvG4DWBF+5hqeE\n"
+    // "UYI9qicYQZZKkdE7ghaaRJAvdGgiWvlSujlwgqXLK9k9QKXoNnbUWNamM3FS1NYB\n"
+    // "ptRjBPQbhPSAJvwXt1oSCpq2gp98eBYOIFSXu2CAU9RzMcmf6fnC1ddqR+ZIr7Hy\n"
+    // "J8ud/VByVyW4qth+sUAKNMQaoDGA2laP7LyzHOhGL9B7j/+hhrdkf25onrEdBMf6\n"
+    // "4B1wRZ9Ljfa0UZek874XcaQgX3dBBSjujeECU99iVXKMRQXbP/W2wgrEL+Rt/Lq9\n"
+    // "DzzXVNkCgYEAz4e36LGCKIbGCsc4egCFf7kFcS4UM4Yi5EVDXjUKpJC5JlNMkP5x\n"
+    // "YCmGRrZWrm1texpAj/xjRDkLxusOQrxA/TpEcC3VQMv4iYip6RR1EMKKlYtK71o0\n"
+    // "VQdKFu4Zpe6bvULwmKzGEnzjSKABUbX203ORz06qAbsVyJvY2k+3xiMCgYEA8E3a\n"
+    // "xRC8WWRog+Kf/dIrWlbgwI+oeIOKVdRTMLJOlpevXRSMHf4QwQIE0seQMGkSYXzy\n"
+    // "q8LY6h2Y2mVN7/bWleWP3JhEcI6j3tstz6/Pl1eJOk50Sg5O5NNtDk2DCYr7sqWo\n"
+    // "wGTJZTujqgKaEcwQURcb5hBhO7fOi6stQDzj7s0CgYAJxA03egLx/UWchDt4IkYl\n"
+    // "+IL1DIIO2qURsOC2sjBKBjVwREM6H38eU1XqRfJWSvf37whSvkG9mCGhvrXxFgLI\n"
+    // "59EIpl9+qRqM/k1gloHbxAvZdbCVCt2jkrA92/6A/HV/toKz7I11mULoy/7D5Zgz\n"
+    // "4yBdbQo7Ap7Hze2qeE3hmQKBgQCpAVh3eIm/JQsMlnqHfSTYaHmxdFe8SmckbiwD\n"
+    // "96Ol7hB7mlPhVCpcVBsoUwppwbwXrFTP0D3WifJSxyTFPAk3azh+oOihcPB3cBcM\n"
+    // "Fk4d1obA5ySKYP3DmZ79jC44q/LRdgj1Ju0tsYAttZ6+HZLsNSB98c8wvNkbCczN\n"
+    // "fQWhkQKBgFzyQSZzKHKlu3Zfeyg+doPXlXlQVpRHqYUoOkzY83DE5ZujXE5H081P\n"
+    // "bui0fXQMsIFBt+/ItCwZsp9rBXPW0uWtA0jDIEkk5Ro4FuRyx/59/Zllxo3vpZyA\n"
+    // "v7lalsxJIywVo2Ni393HP/63bDKjb99mVzeEfpy7Q89Qh+upP8c6\n"
+    // "-----END RSA PRIVATE KEY-----"
 ;
 
 static const char* publicKey =
@@ -55,12 +85,19 @@ static const char* publicKey =
 ;
 
 static const std::string fullMessage =
-    "FHgzBLg5RC1cG2A3USTrXt16wbkP_QfxCdMaxd1OT8ErfU2UxFYTUO6cfXh5vUSeuXS50WOwiJmr8WczDoi01HROg4nqVn"
-    "YVqoHKbk6Ju4UQ_3RJqGbMjSbTRpeOEqlYjaotUpIv55ogu8kzBKJ6ky3abV2iILdAMa-c8yjh6HppGBJnJuTZSmGJIrwm"
-    "r14kVOXosD2N5XCA2jcmkGYRf-6FakUjLz9CQwOoehU8I4OC1cvgbVLcE7GZEEMTcwgfaO_jUsq1xz3H8r3NS0tyLqsRWa"
-    "0dGI7RzjSf4meHm5iIwScnlw96iQf8q0xWXSoATjT4gynS5fy7xqbMLg_BRP0e0WeGQ9AW97Ng0BY8bo35iKqs9DspOOXd"
-    "yXuADY9QD8zlHbEYzhnz_ENqDUHbALP5b5GLXEubmZDXDyPKqlTu4BCa69gilvZCA9L6fKYBtdyMh1q2CmISvqOlP6Mn5m"
-    "5y1TEIltrE0ySbtLggXkw="
+    "iLY6-Td8KdCAeLBUjVDeCLthsj1uXgJAkwhyyvANxNrkQjey4aEyI6G3sYBeaEnGe-dV1Oe48AmFBMmCjFR5ThAPYUu9cC"
+    "giXSk988l7rjbNRgoLHz7i3c8qfmmcoRaAxsR6SuzzikBziPdVygsgtHPhKbDbkR1N3FT9iMquZwQM-gimM-ODRn9BCcSp"
+    "iHfYijAs5MuR363V6msTt09wvRzSyIvUgv96qcGUSm6VxeuLU6MhQr3SCQmhvzTWKxIZgq17BwfgUxXkhiC1_Peec8KhCw"
+    "nAveqBk0K9k_hiEwynRW92wcoCkdL6zDXBNl0dT-mNCDPMSWEl6Gjpvs7qbOYWnT4oZe2X_n60qjLUxD3lx3mKQwwofIHI"
+    "x0v1-d3IjmNC1wpQPiGvnoIgJnaeqrV3m5vo105Nxh6hXD9E1yOQ0F6IaSPMhlWnqhK006RHZJJcM4JFz0RLxuFXhuNvt5"
+    "fLDNSdoVie5ECpizZWGv0="
+;
+
+static const std::string signature =
+    "FdMB_7FmzCkyw3nz56G3JfHETc7bbLYbRnmRj4IBXyIQjkHB-vcBLXcOfZU5t7Z0GB9Iure-OVS7C_pXsE-HrUKF3wP7Ga"
+    "6JAV3iF1hlbfBaHrVeQ7kOWFDyQJfzE1o17jiUjaM32GFJdgsrXOXEWEq5BRIeBqj_aqN_GzmMc2PP6x3Cfwcus_9wZAhM"
+    "mHa_4ntYY4-iHtuJ7d4g6Ycf3R6XLLusyCUToowtdFtaHc4BWAGLqVY0_8iGHwLGGO16XJ7LM54sgQvv8KQtLXKOy9TxAw"
+    "OdmwfyqJMsyjXDsAo-0-JMrTb0VoNwhagl4ZhUm7RSevo-sT4ZLMJVDoEWxg=="
 ;
 
 // ---------------------------------------------------------------------------------------------- //
@@ -283,6 +320,50 @@ std::string encryptLargeMessage( EVP_PKEY* publicKey, const std::string& message
 }
 
 // ---------------------------------------------------------------------------------------------- //
+// ---------------------------------------------------------------------------------------------- //
+// --                                  SIGNATURE METHODS                                       -- //
+// ---------------------------------------------------------------------------------------------- //
+// ---------------------------------------------------------------------------------------------- //
+
+std::string sign( EVP_PKEY* privateKey, const std::string& message ){
+    const std::string& rawMessage = base64Decode( message );
+    EVP_MD_CTX context = { 0 };
+    EVP_MD_CTX_init( &context );
+
+    // int EVP_DigestSignInit(EVP_MD_CTX *ctx, EVP_PKEY_CTX **pctx, const EVP_MD *type, ENGINE *e, EVP_PKEY *pkey);
+    int res = EVP_DigestSignInit( &context, nullptr, EVP_sha256(), nullptr, privateKey );
+    if( res <= 0 ){
+        throw std::runtime_error( "Failed to initialize digest signature." );
+    }
+
+    // int EVP_DigestSignUpdate(EVP_MD_CTX *ctx, const void *d, unsigned int cnt);
+    res = EVP_DigestSignUpdate( &context, rawMessage.c_str(), rawMessage.size() );
+    if( res <= 0 ){
+        throw std::runtime_error( "Failed to update context." );
+    }
+
+    // int EVP_DigestSignFinal(EVP_MD_CTX *ctx, unsigned char *sig, size_t *siglen);
+    unsigned char buffer[ 1024 ] = { 0 };
+    std::size_t size = 1024;
+    res = EVP_DigestSignFinal( &context, buffer, &size );
+    if( res <= 0 ){
+        throw std::runtime_error( "Failed to finalize signature context." );
+    }
+
+    return base64Encode( std::string( (const char*)buffer, size ) );
+}
+
+// ---------------------------------------------------------------------------------------------- //
+
+bool validateSignature(
+    EVP_PKEY*           publicKey,
+    const std::string&  message,
+    const std::string&  signature
+){
+    return false;
+}
+
+// ---------------------------------------------------------------------------------------------- //
 
 int main( void ){
     // Start by decrypting our message.
@@ -295,10 +376,13 @@ int main( void ){
     const std::string& encryptedLicense = encryptLargeMessage( pubKey, license );
     std::cout << "Encrypted license: " << encryptedLicense << std::endl;
 
-    // Lastly, check if we can decrypt our own encryption.
+    // Then check if we can decrypt our own encryption.
     std::cout
         << "Re-decrypted license: " << decryptLargeMessage( priKey, encryptedLicense ) << std::endl
     ;
+
+    // Now lets check signing and verifying signatures.
+    std::cout << "Signature: " << sign( priKey, encryptedLicense ) << std::endl;
 
     return 0;
 }
