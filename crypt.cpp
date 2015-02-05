@@ -360,7 +360,30 @@ bool validateSignature(
     const std::string&  message,
     const std::string&  signature
 ){
-    return false;
+    const std::string& rawMessage = base64Decode( message );
+    const std::string& rawSignature = base64Decode( signature );
+    EVP_MD_CTX context = { 0 };
+    EVP_MD_CTX_init( &context );
+
+    // int EVP_DigestVerifyInit(EVP_MD_CTX *ctx, EVP_PKEY_CTX **pctx, const EVP_MD *type, ENGINE *e, EVP_PKEY *pkey);
+    int res = EVP_DigestVerifyInit( &context, nullptr, EVP_sha256(), nullptr, publicKey );
+    if( res <= 0 ){
+        throw std::runtime_error( "Failed to initialize digest verfiy." );
+    }
+
+    // int EVP_DigestVerifyUpdate(EVP_MD_CTX *ctx, const void *d, unsigned int cnt);
+    res = EVP_DigestVerifyUpdate( &context, rawMessage.c_str(), rawMessage.size() );
+    if( res <= 0 ){
+        throw std::runtime_error( "Failed to update digest verify." );
+    }
+
+    // int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sig, size_t siglen);
+    res = EVP_DigestVerifyFinal( &context, (const unsigned char*)rawSignature.c_str(), rawSignature.size() );
+    if( res < 0 ){ // Just less then, not less/equal. Zero just means it's an invalid signature.
+        throw std::runtime_error( "Failed to finalize digest verify." );
+    }
+
+    return res == 1;
 }
 
 // ---------------------------------------------------------------------------------------------- //
@@ -382,7 +405,17 @@ int main( void ){
     ;
 
     // Now lets check signing and verifying signatures.
-    std::cout << "Signature: " << sign( priKey, encryptedLicense ) << std::endl;
+    const std::string& sig = sign( priKey, fullMessage );
+    std::cout << "Signature: " << sig << std::endl;
+    std::cout
+        << "Valid: " << std::boolalpha << validateSignature( pubKey, fullMessage, sig )
+        << std::endl
+    ;
+    std::cout << "Python signature: " << signature << std::endl;
+    std::cout
+        << "Valid: " << std::boolalpha << validateSignature( pubKey, fullMessage, signature )
+        << std::endl
+    ;
 
     return 0;
 }
