@@ -2,9 +2,11 @@
 
 file=$1
 
+brewOpenSSL=`brew --prefix openssl`
+
 CC="clang++"
-CXXFLAGS="-std=c++1y"
-LDFLAGS="-L`brew --prefix openssl`/lib -lssl -lcrypto"
+CXXFLAGS="-std=c++1y -I$brewOpenSSL/include"
+LDFLAGS="-L$brewOpenSSL/lib -lssl -lcrypto"
 
 cmd="$CC $CXXFLAGS $LDFLAGS $file && ./a.out"
 
