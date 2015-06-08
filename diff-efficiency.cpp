@@ -33,7 +33,7 @@ void diff(const List& a, const List& b, List& toAdd, List& toRemove){
     for(const auto& item : b){
         auto itr = diff.find(item.id);
         if(itr == diff.end()){
-            diff.emplace(item.id,DiffItem{ item, false, true });
+            diff.emplace(item.id, DiffItem{ item, false, true });
         }
         else {
             itr->second.local = true;
@@ -44,12 +44,12 @@ void diff(const List& a, const List& b, List& toAdd, List& toRemove){
     for(const auto& diffItem : diff){
         // Remote == true && Local == false -> add
         if(diffItem.second.remote && !diffItem.second.local){
-            toAdd.push_back( diffItem.second.item );
+            toAdd.push_back(diffItem.second.item);
         }
 
         // Remote == false && Local == true -> remove
         else if(!diffItem.second.remote && diffItem.second.local){
-            toRemove.push_back( diffItem.second.item );
+            toRemove.push_back(diffItem.second.item);
         }
     }
 }
