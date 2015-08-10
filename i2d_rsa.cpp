@@ -26,7 +26,17 @@ void writePublicKey( EVP_PKEY* evpKey, char* rawBuffer, const std::size_t buffSi
 int main( void ){
     // int i2d_RSAPublicKey(RSA *a, unsigned char **pp);
     // int i2d_RSA_PUBKEY(RSA *a, unsigned char **pp);
-    const char* keyStr = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAws5ZlcsFQv8oh+f5YDE/\nDqro+tyQxcRpw8Ykjo/Vxq/x7rFgCZch7IUWfImTXEiYbePVApgcCFS/yMBJpaG9\nmWYbYDmpQEMrYEAdo7dB0A6NS/DFvdlTmhUxe2YBqeP7U+s5pZ1nekhVD1vCkJro\nP8Z8pwOZ4kDo1pWDcguL8j0c0a5JeO24sBtBxak3lDOlTdIrc6ulJ/cNrhzIhbmu\nQUTwImsmOH/SYHHKhMctPAU26CRai8NmhIucNx+0LYhikaJXgfdyHD/a7RdSqMHy\nQWqRjvEyk7DJOEojSEF8OlES24qoyMTNRUIndrQc2u96oQToQh9sjg6S0g8TlWc0\nBwIDAQAB\n-----END PUBLIC KEY-----";
+    const char* keyStr =
+        "-----BEGIN PUBLIC KEY-----\n"
+        "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAws5ZlcsFQv8oh+f5YDE/\n"
+        "Dqro+tyQxcRpw8Ykjo/Vxq/x7rFgCZch7IUWfImTXEiYbePVApgcCFS/yMBJpaG9\n"
+        "mWYbYDmpQEMrYEAdo7dB0A6NS/DFvdlTmhUxe2YBqeP7U+s5pZ1nekhVD1vCkJro\n"
+        "P8Z8pwOZ4kDo1pWDcguL8j0c0a5JeO24sBtBxak3lDOlTdIrc6ulJ/cNrhzIhbmu\n"
+        "QUTwImsmOH/SYHHKhMctPAU26CRai8NmhIucNx+0LYhikaJXgfdyHD/a7RdSqMHy\n"
+        "QWqRjvEyk7DJOEojSEF8OlES24qoyMTNRUIndrQc2u96oQToQh9sjg6S0g8TlWc0\n"
+        "BwIDAQAB\n"
+        "-----END PUBLIC KEY-----"
+    ;
     EVP_PKEY* evpKey = readPublicKey( keyStr );
     RSA* rsaKey = EVP_PKEY_get1_RSA( evpKey );
 
