@@ -34,7 +34,8 @@ Fk4d1obA5ySKYP3DmZ79jC44q/LRdgj1Ju0tsYAttZ6+HZLsNSB98c8wvNkbCczN
 fQWhkQKBgFzyQSZzKHKlu3Zfeyg+doPXlXlQVpRHqYUoOkzY83DE5ZujXE5H081P
 bui0fXQMsIFBt+/ItCwZsp9rBXPW0uWtA0jDIEkk5Ro4FuRyx/59/Zllxo3vpZyA
 v7lalsxJIywVo2Ni393HP/63bDKjb99mVzeEfpy7Q89Qh+upP8c6
------END RSA PRIVATE KEY-----"""
+-----END RSA PRIVATE KEY-----
+"""
 
 publicKeyStr = """-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAws5ZlcsFQv8oh+f5YDE/
@@ -52,17 +53,6 @@ license = """{
     "offline": true,
     "partner": "bob"
 }"""
-
-# license = """{
-#     "application_id": "uybcrnuTsv7GtPPrc7cElp0E5Qs6yjlP2805-boHHdg=",
-#     "expiration_date": "1970-01-01",
-#     "subscription_type_id": 3,
-#     "offline_access": false,
-#     "secret": "O7zuUaXBIAuxAGgU4eGCRkkEanTYoZkPnl0vCccJExY=",
-#     "user_id": 100183,
-#     "partner_id": "37024de336be4bdba74594e95ff8ad1b",
-#     "start_date": "1970-01-01"
-# }"""
 
 def base64_encode(data):
     """ Base64 encodes the given data using Pulselocker's URL-safe character set. """
