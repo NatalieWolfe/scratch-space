@@ -81,7 +81,48 @@ void sequential_read(const Container& data){
     }
 }
 
-void run_test(const std::size_t size){
+template<typename Container, typename Sequence>
+void run_test(const std::string& name, const Container& data, Sequence& sequence){
+    const std::size_t size = data.size();
+
+    // Set up the timer.
+    using namespace std::chrono;
+    typedef high_resolution_clock clock;
+    typedef clock::time_point time_point;
+    time_point start;
+    time_point end;
+    nanoseconds diff;
+
+    // Figure out the random number overhead.
+    start = clock::now();
+    generate_random(sequence, size);
+    end = clock::now();
+    auto rand_overhead = end - start;
+
+    // Time sequential reads from the container.
+    std::cout << "Sequential read of " << size << " bytes from " << name << ":" << std::endl;
+    start = clock::now();
+    sequential_read(data);
+    end = clock::now();
+    diff = duration_cast<nanoseconds>(end - start);
+    std::cout
+        << " - Total:    " << diff.count() << "ns\n"
+        << " - Per-byte: " << (diff.count() / size) << "ns" << std::endl;
+
+    // Time random reads from the container.
+    std::cout << "Random read of " << size << " bytes from " << name << ":" << std::endl;
+    start = clock::now();
+    random_read(data, sequence);
+    end = clock::now();
+    diff = duration_cast<nanoseconds>((end - start) - rand_overhead);
+    std::cout
+        << " - Total:    " << diff.count() << "ns\n"
+        << " - Per-byte: " << (diff.count() / size) << "ns" << std::endl;
+
+    std::cout << std::endl;
+}
+
+void run_all_tests(const std::size_t size){
     // Create our random sequence generator.
     const std::size_t seed = std::random_device()();
     std::mt19937_64 generator(seed);
@@ -95,69 +136,14 @@ void run_test(const std::size_t size){
         data.push_back(gen_func());
     }
 
-    // Set up the timer.
-    using namespace std::chrono;
-    typedef high_resolution_clock clock;
-    typedef clock::time_point time_point;
-    time_point start;
-    time_point end;
-    nanoseconds diff;
-
-    // Figure out the random number overhead.
-    std::cout << "Determining overhead of generating " << size << " random numbers..." << std::endl;
-    start = clock::now();
-    generate_random(gen_func, size);
-    end = clock::now();
-    auto rand_overhead = end - start;
-    std::cout << " - " << duration_cast<nanoseconds>(rand_overhead).count() << "ns" << std::endl;
-
-    // Time sequential reads of a plain buffer.
-    std::cout << "Sequential read of " << size << " bytes from plain buffer:" << std::endl;
-    start = clock::now();
-    sequential_read(data);
-    end = clock::now();
-    diff = duration_cast<nanoseconds>(end - start);
-    std::cout
-        << " - Total:    " << diff.count() << "ns\n"
-        << " - Per-byte: " << (diff.count() / size) << "ns" << std::endl;
-
-    // Time random reads of a plain buffer.
-    std::cout << "Random read of " << size << " bytes from plain buffer:" << std::endl;
-    start = clock::now();
-    random_read(data, gen_func);
-    end = clock::now();
-    diff = duration_cast<nanoseconds>((end - start) - rand_overhead);
-    std::cout
-        << " - Total:    " << diff.count() << "ns\n"
-        << " - Per-byte: " << (diff.count() / size) << "ns" << std::endl;
-
-    // Time sequential read from double buffer.
-    std::cout << "Sequential read of " << size << " bytes from double buffer:" << std::endl;
-    start = clock::now();
-    sequential_read(DoubleBuffer(data));
-    end = clock::now();
-    diff = duration_cast<nanoseconds>(end - start);
-    std::cout
-        << " - Total:    " << diff.count() << "ns\n"
-        << " - Per-byte: " << (diff.count() / size) << "ns" << std::endl;
-
-    // Time random reads of a double buffer.
-    std::cout << "Random read of " << size << " bytes from double buffer:" << std::endl;
-    start = clock::now();
-    random_read(DoubleBuffer(data), gen_func);
-    end = clock::now();
-    diff = duration_cast<nanoseconds>((end - start) - rand_overhead);
-    std::cout
-        << " - Total:    " << diff.count() << "ns\n"
-        << " - Per-byte: " << (diff.count() / size) << "ns" << std::endl;
-
-    std::cout << std::endl;
+    run_test("plain buffer", data, gen_func);
+    run_test("double buffer", DoubleBuffer(data), gen_func);
 }
 
 int main(void){
-    run_test(100);
-    run_test(1000);
-    run_test(10000);
-    run_test(100000);
-    run_test(1000000);
+    run_all_tests(100);
+    run_all_tests(1000);
+    run_all_tests(10000);
+    run_all_tests(100000);
+    run_all_tests(1000000);
 }
