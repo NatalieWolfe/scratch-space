@@ -54,6 +54,7 @@ license = """{
     "partner": "bob"
 }"""
 
+
 def base64_encode(data):
     """ Base64 encodes the given data using Pulselocker's URL-safe character set. """
     return b64encode(data).replace('+', '-').replace('/', '_').replace('\n', '')
@@ -82,8 +83,8 @@ def encrypt_large_payload(data, public_key, padding="1234567890abcdefghijklmnopq
     """
     # Generate the key and IV.
     random_device = Random.new()
-    aes_key = random_device.read(32) # 256-bit random key
-    aes_iv = random_device.read(16)  # 128-bit random IV
+    aes_key = random_device.read(32)  # 256-bit random key
+    aes_iv = random_device.read(16)   # 128-bit random IV
 
     # Encrypt the key and IV together as the start of the message.
     rsa_cipher = PKCS1_OAEP.new(RSA.importKey(public_key))
@@ -93,7 +94,7 @@ def encrypt_large_payload(data, public_key, padding="1234567890abcdefghijklmnopq
     # size (16 bytes). To satisfy this we will left-pad the payload with a randomly chosen character
     # from the `padding` parameter to bring it's size to an exact multiple of 16 bytes.
     pad_char = random.choice(padding)
-    padding_size = (16 - len(data) % 16) - 1 # Minus 1 byte for hex-encoded padding size
+    padding_size = (16 - len(data) % 16) - 1  # Minus 1 byte for hex-encoded padding size
     padded_data = "%x%s" % (padding_size, data.rjust(len(data) + padding_size, pad_char))
     aes_cipher = AES.new(aes_key, AES.MODE_CBC, aes_iv)
     encrypted_data = aes_cipher.encrypt(padded_data)
@@ -127,7 +128,7 @@ def decrypt_large_payload(data, private_key):
     # Decrypt the payload and remove the padding.
     aes_cipher = AES.new(aes_key, AES.MODE_CBC, aes_iv)
     decrypted_payload = aes_cipher.decrypt(encrypted_payload)
-    padding_size = int(decrypted_payload[0], 16) + 1 # Plus 1 for the padding number itself.
+    padding_size = int(decrypted_payload[0], 16) + 1  # Plus 1 for the padding number itself.
     payload = decrypted_payload[padding_size:]
 
     return payload
