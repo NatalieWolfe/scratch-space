@@ -1,6 +1,7 @@
 #! /bin/bash
 
 file=$1
+shift
 
 brewOpenSSL=`brew --prefix openssl`
 
@@ -10,7 +11,7 @@ LDFLAGS="-L$brewOpenSSL/lib -lssl -lcrypto"
 
 cmd="$CC $CXXFLAGS $LDFLAGS $file && ./a.out"
 
-echo $cmd
-eval $cmd
+echo $cmd $@
+eval $cmd $@
 
 rm a.out
