@@ -4,10 +4,11 @@ file=$1
 shift
 
 brewOpenSSL=`brew --prefix openssl`
+brewCurl=`brew --prefix curl`
 
-CC="clang++"
-CXXFLAGS="-std=c++1y -I$brewOpenSSL/include"
-LDFLAGS="-L$brewOpenSSL/lib -lssl -lcrypto"
+CC="$(brew --prefix gcc)/bin/g++-5"
+CXXFLAGS="-g -std=c++1y -I$brewOpenSSL/include -I$brewCurl/include"
+LDFLAGS="-L$brewOpenSSL/lib -lssl -lcrypto -L$brewCurl/lib -lcurl"
 
 cmd="$CC $CXXFLAGS $LDFLAGS $file && ./a.out"
 
