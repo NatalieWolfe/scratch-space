@@ -67,8 +67,8 @@ private:
 
         // If we have one character and it is a newline, we've reached EOL. Else, if we have one
         // character and it _isn't_ a newline, we haven't reached EOL.
-        const char endOne = m_line.at(size - 1);
-        if (size == 1 && endOne == '\n') {
+        const char end_one = m_line.at(size - 1);
+        if (size == 1 && end_one == '\n') {
             return 1;
         }
         else if (size == 1) {
@@ -78,11 +78,11 @@ private:
         // If we have more than one character and the last two are `\r\n` we've reached a 2-char
         // line ending. Else, if the last character is a `\n` then we've reached a 1-char line
         // ending. Otherwise we have not reached EOL yet.
-        const char endTwo = m_line.at(size - 2);
-        if (endTwo == '\r' && endOne == '\n') {
+        const char end_two = m_line.at(size - 2);
+        if (end_two == '\r' && end_one == '\n') {
             return 2;
         }
-        else if (endOne == '\n') {
+        else if (end_one == '\n') {
             return 1;
         }
         else {
