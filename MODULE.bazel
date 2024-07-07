@@ -1,0 +1,5 @@
+"""
+Personal scratch space for random testings.
+"""
+
+module(name = "scratch-space", repo_name = "scratch-space")

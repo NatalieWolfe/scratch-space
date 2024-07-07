@@ -29,3 +29,12 @@
 
 # Debug symbols
 *.dSYM
+
+# Bazel folders
+bazel-bin
+bazel-out
+bazel-scratch-space
+bazel-testlogs
+
+# Editor files
+.vscode
